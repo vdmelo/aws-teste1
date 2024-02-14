@@ -8,6 +8,8 @@ class AwsTeste1ApplicationTests {
 
 	@Test
 	void contextLoads() {
+
+		throw new RuntimeException("Force fail");
 	}
 
 }
