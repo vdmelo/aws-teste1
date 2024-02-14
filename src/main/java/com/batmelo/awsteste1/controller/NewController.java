@@ -8,6 +8,6 @@ public class NewController {
 
     @GetMapping("new-teste")
     public String teste() {
-        return "New Controller v2.";
+        return "New Controller v3. Trigger pipeline";
     }
 }
