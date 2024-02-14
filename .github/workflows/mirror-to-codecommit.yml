@@ -9,6 +9,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
       - name: Checkout code
         uses: actions/checkout@v3
@@ -20,11 +24,6 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
@@ -33,15 +32,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Mirror to CodeCommit
         uses: pixta-dev/repository-mirroring-action@v1
