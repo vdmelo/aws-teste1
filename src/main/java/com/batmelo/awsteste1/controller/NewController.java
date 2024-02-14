@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class NewController {
 
-    @GetMapping("teste")
+    @GetMapping("new-teste")
     public String teste() {
-        return "New Controller";
+        return "New Controller v2.";
     }
 }
