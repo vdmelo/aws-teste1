@@ -18,7 +18,7 @@ import { Asset } from 'aws-cdk-lib/aws-s3-assets';
 import { IgnoreMode } from 'aws-cdk-lib';
 import { Code } from 'aws-cdk-lib/aws-codecommit';
 
-export class CodepipelineBuildDeployStack extends cdk.Stack {
+export class AwsTeste1BuildDeployStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
@@ -55,7 +55,7 @@ export class CodepipelineBuildDeployStack extends cdk.Stack {
     });
 
     // CodeBuild project that builds the Docker image
-    const buildImage = new codebuild.Project(this, "BuildImage", {
+    const buildImage = new codebuild.Project(this, "AwsTeste1BuildImage", {
       buildSpec: codebuild.BuildSpec.fromSourceFilename("app/buildspec.yaml"),
       source: codebuild.Source.codeCommit({ repository: codeRepo }),
       environment: {

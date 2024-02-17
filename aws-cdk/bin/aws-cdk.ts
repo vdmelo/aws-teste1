@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import {CodepipelineBuildDeployStack} from '../lib/aws-cdk-stack';
+import {AwsTeste1BuildDeployStack} from '../lib/aws-cdk-stack';
 
 const app = new cdk.App();
-new CodepipelineBuildDeployStack(app, 'CodepipelineBuildDeployStack', {
+new AwsTeste1BuildDeployStack(app, 'AwsTeste1BuildDeployStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
