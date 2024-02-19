@@ -44,6 +44,7 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
         this,
         "FargateTaskDef"
     );
+
     fargateTaskDef.addContainer("AwsTeste1Container", {
       containerName: "web",
       image: ecs.ContainerImage.fromEcrRepository(imageRepo),
