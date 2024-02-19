@@ -1,6 +1,9 @@
 version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+      java: corretto21
   pre_build:
     commands:
       - cd aws-cdk/app
@@ -8,8 +11,6 @@ phases:
       - aws --version
       - aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com
   build:
-    runtime-versions:
-      java: corretto21
     commands:
       - echo Building the Docker image...
       - pwd
