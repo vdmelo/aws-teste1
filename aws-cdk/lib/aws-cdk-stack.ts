@@ -23,21 +23,21 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
     super(scope, id, props);
 
     // modify gitignore file to remove unneeded files from the codecommit copy
-    let gitignore = fs.readFileSync('.gitignore').toString().split(/\r?\n/);
+    /*let gitignore = fs.readFileSync('.gitignore').toString().split(/\r?\n/);
     gitignore.push('.git/');
     gitignore = gitignore.filter(g => g != 'node_modules/');
-    gitignore.push('/node_modules/');
+    gitignore.push('/node_modules/');*/
 
-    const codeAsset = new Asset(this, 'SourceAsset', {
-      path: path.join(__dirname, "../"),
+    /*const codeAsset = new Asset(this, 'AwsTeste1SourceAsset', {
+      path: path.join(__dirname, "../../"),
       ignoreMode: IgnoreMode.GIT,
       exclude: gitignore,
-    });
+    });*/
 
     const codeRepo = new codecommit.Repository(this, "repo", {
-      repositoryName: "aws-teste1-repos",
+      repositoryName: "aws-teste1",
       // Copies files from codepipeline-build-deploy directory to the repo as the initial commit
-      code: Code.fromAsset(codeAsset, 'main'),
+      // code: Code.fromAsset(codeAsset, 'main'),
     });
 
     // Creates an Elastic Container Registry (ECR) image repository
@@ -74,7 +74,7 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
     });
 
     // CodeBuild project that builds the Docker image
-    /*const buildTest = new codebuild.Project(this, "BuildTest", {
+    const buildTest = new codebuild.Project(this, "AwsTeste1BuildTest", {
       buildSpec: codebuild.BuildSpec.fromSourceFilename("buildspec.yaml"),
       source: codebuild.Source.codeCommit({ repository: codeRepo }),
       environment: {
@@ -86,7 +86,7 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
     imageRepo.grantPullPush(buildImage);
 
     // Lambda function that triggers CodeBuild image build project
-    const triggerCodeBuild = new lambda.Function(this, "BuildLambda", {
+    /*const triggerCodeBuild = new lambda.Function(this, "BuildLambda", {
       architecture: lambda.Architecture.ARM_64,
       code: lambda.Code.fromAsset("./lambda"),
       handler: "trigger-build.handler",

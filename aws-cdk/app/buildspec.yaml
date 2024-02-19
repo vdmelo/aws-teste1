@@ -10,7 +10,7 @@ phases:
   build:
     commands:
       - echo Building the Docker image...
-      - mvn spring-boot:build-image -Dspring-boot.build-image.imageName=$IMAGE_REPO_NAME:$IMAGE_TAG
+      - mvn spring-boot:build-image -Dspring-boot.build-image.imageName=$IMAGE_REPO_NAME:$IMAGE_TAG -f spring-app-teste
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
   post_build:
     commands:
