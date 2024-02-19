@@ -34,11 +34,7 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
       exclude: gitignore,
     });*/
 
-    const codeRepo = new codecommit.Repository(this, "repo", {
-      repositoryName: "aws-teste1-repos",
-      // Copies files from codepipeline-build-deploy directory to the repo as the initial commit
-      // code: Code.fromAsset(codeAsset, 'main'),
-    });
+    const codeRepo = codecommit.Repository.fromRepositoryName(this, "repo", "aws-teste1-repos");
 
     // Creates an Elastic Container Registry (ECR) image repository
     const imageRepo = new ecr.Repository(this, "AwsTeste1ImageRepository");
