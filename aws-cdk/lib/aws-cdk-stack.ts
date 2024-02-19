@@ -55,6 +55,7 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
       buildSpec: codebuild.BuildSpec.fromSourceFilename("aws-cdk/app/buildspec.yaml"),
       source: codebuild.Source.codeCommit({ repository: codeRepo }),
       environment: {
+        buildImage: codebuild.LinuxBuildImage.STANDARD_5_0,
         privileged: true,
         environmentVariables: {
           AWS_ACCOUNT_ID: { value: process.env?.CDK_DEFAULT_ACCOUNT || "" },
@@ -71,7 +72,7 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
 
     // CodeBuild project that builds the Docker image
     const buildTest = new codebuild.Project(this, "AwsTeste1BuildTest", {
-      buildSpec: codebuild.BuildSpec.fromSourceFilename("buildspec.yaml"),
+      buildSpec: codebuild.BuildSpec.fromSourceFilename("aws-cdk/app/buildspec.yaml"),
       source: codebuild.Source.codeCommit({ repository: codeRepo }),
       environment: {
         buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_4,
