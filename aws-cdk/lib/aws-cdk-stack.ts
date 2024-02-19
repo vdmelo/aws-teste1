@@ -35,7 +35,7 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
     });*/
 
     const codeRepo = new codecommit.Repository(this, "repo", {
-      repositoryName: "aws-teste1",
+      repositoryName: "aws-teste1-repos",
       // Copies files from codepipeline-build-deploy directory to the repo as the initial commit
       // code: Code.fromAsset(codeAsset, 'main'),
     });
