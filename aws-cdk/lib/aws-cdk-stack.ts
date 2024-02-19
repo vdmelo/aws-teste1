@@ -52,7 +52,7 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
 
     // CodeBuild project that builds the Docker image
     const buildImage = new codebuild.Project(this, "AwsTeste1BuildImage", {
-      buildSpec: codebuild.BuildSpec.fromSourceFilename("app/buildspec.yaml"),
+      buildSpec: codebuild.BuildSpec.fromSourceFilename("aws-cdk/app/buildspec.yaml"),
       source: codebuild.Source.codeCommit({ repository: codeRepo }),
       environment: {
         privileged: true,
