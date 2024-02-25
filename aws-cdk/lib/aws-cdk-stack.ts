@@ -84,7 +84,7 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
     imageRepo.grantPullPush(buildImage);
 
     // Lambda function that triggers CodeBuild image build project
-    /*const triggerCodeBuild = new lambda.Function(this, "BuildLambda", {
+    const triggerCodeBuild = new lambda.Function(this, "AwsTeste1BuildLambda", {
       architecture: lambda.Architecture.ARM_64,
       code: lambda.Code.fromAsset("./lambda"),
       handler: "trigger-build.handler",
@@ -106,7 +106,7 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
     // Triggers a Lambda function using AWS SDK
     const triggerLambda = new custom.AwsCustomResource(
         this,
-        "BuildLambdaTrigger",
+        "AwsTeste1BuildLambdaTrigger",
         {
           installLatestAwsSdk: true,
           policy: custom.AwsCustomResourcePolicy.fromStatements([
@@ -137,7 +137,7 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
     );
 
     // Creates VPC for the ECS Cluster
-    const clusterVpc = new ec2.Vpc(this, "ClusterVpc", {
+    const clusterVpc = new ec2.Vpc(this, "AwsTeste1ClusterVpc", {
       ipAddresses: ec2.IpAddresses.cidr("10.50.0.0/16"),
     });
 
@@ -149,7 +149,7 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
     // https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html
     const targetGroupBlue = new elb.ApplicationTargetGroup(
         this,
-        "BlueTargetGroup",
+        "AwsTeste1BlueTargetGroup",
         {
           targetGroupName: "alb-blue-tg",
           targetType: elb.TargetType.IP,
@@ -161,7 +161,7 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
     // Creates a new green Target Group
     const targetGroupGreen = new elb.ApplicationTargetGroup(
         this,
-        "GreenTargetGroup",
+        "AwsTeste1GreenTargetGroup",
         {
           targetGroupName: "alb-green-tg",
           targetType: elb.TargetType.IP,
@@ -171,7 +171,7 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
     );
 
     // Creates a Security Group for the Application Load Balancer (ALB)
-    const albSg = new ec2.SecurityGroup(this, "SecurityGroup", {
+    const albSg = new ec2.SecurityGroup(this, "AwsTeste1SecurityGroup", {
       vpc: clusterVpc,
       allowAllOutbound: true,
     });
@@ -183,21 +183,21 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
     );
 
     // Creates a public ALB
-    const publicAlb = new elb.ApplicationLoadBalancer(this, "PublicAlb", {
+    const publicAlb = new elb.ApplicationLoadBalancer(this, "AwsTeste1PublicAlb", {
       vpc: clusterVpc,
       internetFacing: true,
       securityGroup: albSg,
     });
 
     // Adds a listener on port 80 to the ALB
-    const albListener = publicAlb.addListener("AlbListener80", {
+    const albListener = publicAlb.addListener("AwsTeste1AlbListener80", {
       open: false,
       port: 80,
       defaultTargetGroups: [targetGroupBlue],
     });
 
     // Creates an ECS Fargate service
-    const fargateService = new ecs.FargateService(this, "FargateService", {
+    const fargateService = new ecs.FargateService(this, "AwsTeste1FargateService", {
       desiredCount: 1,
       serviceName: "fargate-frontend-service",
       taskDefinition: fargateTaskDef,
@@ -215,8 +215,8 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
     fargateService.attachToApplicationTargetGroup(targetGroupBlue);
 
     // Creates new pipeline artifacts
-    const sourceArtifact = new pipeline.Artifact("SourceArtifact");
-    const buildArtifact = new pipeline.Artifact("BuildArtifact");
+    /*const sourceArtifact = new pipeline.Artifact("AwsTeste1SourceArtifact");
+    const buildArtifact = new pipeline.Artifact("AwsTeste1BuildArtifact");
 
     // Creates the source stage for CodePipeline
     const sourceStage = {
