@@ -24,6 +24,7 @@ phases:
       - echo Pushing the Docker image...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
       - echo Container image to be used $REPOSITORY_URI:$IMAGE_TAG
+      - pwd
       - sed -i "s|REPOSITORY_URI|${REPOSITORY_URI}|g" taskdef.json
       - sed -i "s|IMAGE_TAG|${IMAGE_TAG}|g" taskdef.json
       - sed -i "s|TASK_ROLE_ARN|${TASK_ROLE_ARN}|g" taskdef.json
