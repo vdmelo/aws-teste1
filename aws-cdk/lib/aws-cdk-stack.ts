@@ -56,7 +56,7 @@ export class AwsTeste1BuildDeployStack extends cdk.Stack {
       buildSpec: codebuild.BuildSpec.fromSourceFilename("aws-cdk/app/buildspec.yaml"),
       source: codebuild.Source.codeCommit({ repository: codeRepo }),
       environment: {
-        buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_5,
+        buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_4,
         privileged: true,
         environmentVariables: {
           AWS_ACCOUNT_ID: { value: process.env?.CDK_DEFAULT_ACCOUNT || "" },
